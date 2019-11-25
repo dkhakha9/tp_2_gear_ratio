@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import edu.princeton.cs.introcs.StdOut;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -28,6 +31,30 @@ public class MainApp extends Application
 
         ChoiceBox cassetteSizeNumber = new ChoiceBox(FXCollections.observableArrayList("36t", "38t", "40t", "46t", "48t"));
         grid.add(cassetteSizeNumber, 1, 0);
+        
+        Integer[] cassete1 = {11, 12, 13, 14, 15};
+        Integer[] cassete2 = {11, 13, 15, 17, 19};
+        
+        Combo combo1 = new Combo(46, new ArrayList<Integer>(Arrays.asList(cassete1)));
+        Combo combo2 = new Combo(38, new ArrayList<Integer>(Arrays.asList(cassete2)));
+        Combo combo3 = new Combo(36, new ArrayList<Integer>(Arrays.asList(cassete1)));
+        
+        ArrayList<Combo> setup1 = new ArrayList<Combo>();
+        ArrayList<Combo> setup2 = new ArrayList<Combo>();
+        ArrayList<Combo> setup3 = new ArrayList<Combo>();
+        
+        setup1.add(combo1);
+        
+        setup2.add(combo1);
+        setup2.add(combo2);
+        
+        setup3.add(combo1);
+        setup3.add(combo2);
+        setup3.add(combo3);
+        
+        gearChart.addSetup(setup1);
+        gearChart.addSetup(setup2);
+        gearChart.addSetup(setup3);
         
         grid.add(gearChart.getChart(), 0, 2, 6, 2);
         
