@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Combo
 {
@@ -14,6 +15,16 @@ public class Combo
 	public int getRingSize()
 	{
 		return ringSize;
+	}
+	
+	public int getMinTeethCount()
+	{
+		return Collections.min(sprockets);
+	}
+	
+	public int getMaxTeethCount()
+	{
+		return Collections.max(sprockets);
 	}
 	
 	public ArrayList<Double> getGearRatios()
