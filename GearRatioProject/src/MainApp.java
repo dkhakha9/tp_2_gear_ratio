@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -26,44 +27,98 @@ public class MainApp extends Application
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Label cassetteSizeLabel = new Label("Cassette size");
-        grid.add(cassetteSizeLabel, 0, 0);
+        grid.add(new Label("Chainring size"), 0, 0);
+        
+        ArrayList<ChoiceBox> chainrings = new ArrayList<ChoiceBox>();
+        
+        chainrings.add(new ChoiceBox(FXCollections.observableArrayList(genTeethSizeList(9, 36))));
 
-        ChoiceBox cassetteSizeNumber = new ChoiceBox(FXCollections.observableArrayList("36t", "38t", "40t", "46t", "48t"));
-        grid.add(cassetteSizeNumber, 1, 0);
+        grid.add(chainrings.get(0), 1, 0);
         
-        Integer[] cassete1 = {11, 12, 13, 14, 15};
-        Integer[] cassete2 = {11, 13, 15, 17, 19};
+        Button button = new Button("Add chainring");
         
-        Combo combo1 = new Combo(46, new ArrayList<Integer>(Arrays.asList(cassete1)));
-        Combo combo2 = new Combo(38, new ArrayList<Integer>(Arrays.asList(cassete2)));
-        Combo combo3 = new Combo(36, new ArrayList<Integer>(Arrays.asList(cassete1)));
-        Combo combo4 = new Combo(40, new ArrayList<Integer>(Arrays.asList(cassete1)));
+        grid.add(button, 2, 0);
         
-        ArrayList<Combo> setup1 = new ArrayList<Combo>();
-        ArrayList<Combo> setup2 = new ArrayList<Combo>();
-        ArrayList<Combo> setup3 = new ArrayList<Combo>();
+        button.setOnAction(value ->  {
+        	chainrings.add(new ChoiceBox(FXCollections.observableArrayList(genTeethSizeList(9, 36))));
+        	grid.add(chainrings.get(chainrings.size() - 1), chainrings.size(), 0);
+        	GridPane.setColumnIndex(button, chainrings.size() + 1);
+        	if (chainrings.size() >= 3)
+        	{
+        		button.setDisable(true);
+        	}
+        });
         
-        setup1.add(combo2);
+        Button plotButton = new Button("Plot");
         
-        setup2.add(combo1); // all combos in a setup should have the same cassette
-        setup2.add(combo3);
+        grid.add(plotButton, 0, 1);
         
-        setup3.add(combo1);
-        setup3.add(combo3);
-        setup3.add(combo4);
-        
-        gearChart.addSetup(setup1);
-        gearChart.addSetup(setup2);
-        gearChart.addSetup(setup3);
-        
-        grid.add(gearChart.getChart(), 0, 2, 6, 2);
+        plotButton.setOnAction(value ->  {
+        	
+        	Integer[] cassete1 = {11, 12, 13, 14, 15};
+            Integer[] cassete2 = {11, 13, 15, 17, 19};
+            
+            Combo combo1 = new Combo(genValue((Integer)chainrings.get(0).getValue(), 46), new ArrayList<Integer>(Arrays.asList(cassete1)));
+            
+            int size = 38;
+            
+            if (chainrings.size() > 1)
+            	size = genValue((Integer)chainrings.get(1).getValue(), size);
+            
+            Combo combo2 = new Combo(size, new ArrayList<Integer>(Arrays.asList(cassete2)));
+            Combo combo3 = new Combo(36, new ArrayList<Integer>(Arrays.asList(cassete1)));
+            Combo combo4 = new Combo(40, new ArrayList<Integer>(Arrays.asList(cassete1)));
+            
+            ArrayList<Combo> setup1 = new ArrayList<Combo>();
+            ArrayList<Combo> setup2 = new ArrayList<Combo>();
+            ArrayList<Combo> setup3 = new ArrayList<Combo>();
+            
+            setup1.add(combo2);
+            
+            setup2.add(combo1); // all combos in a setup should have the same cassette
+            setup2.add(combo3);
+            
+            setup3.add(combo1);
+            setup3.add(combo3);
+            setup3.add(combo4);
+            
+            gearChart.addSetup(setup1);
+            gearChart.addSetup(setup2);
+            gearChart.addSetup(setup3);
+            
+            grid.add(gearChart.getChart(), 0, 2, 6, 2);
+            
+            plotButton.setDisable(true);
+        });
         
         Scene scene = new Scene(grid,800,600);
        
         stage.setScene(scene);
         stage.show();
     }
+	
+	private ArrayList<Integer> genTeethSizeList(int minSize, int maxSize)
+	{
+		assert(minSize <= maxSize);
+		ArrayList<Integer> resultList = new ArrayList<Integer>();
+		for (int i = minSize; i <= maxSize; i++)
+		{
+			resultList.add(i);
+		}
+		return resultList;
+	}
+	
+	private int genValue(Integer userInput, Integer defaultVal)
+	{
+		if (userInput == null)
+		{
+			return defaultVal;
+		}
+		else
+		{
+			return userInput;
+		}
+	}
 	
 	public static void main(String[] args)
 	{

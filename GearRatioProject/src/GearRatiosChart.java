@@ -48,7 +48,7 @@ public class GearRatiosChart
 	private void addSeries(Combo combo, double posY)
 	{
 		XYChart.Series series = new XYChart.Series();
-        series.setName(combo.getRingSize() + "t: " + combo.getMinTeethCount() + "-" + combo.getMaxTeethCount());
+        series.setName(combo.getRingSize() + "t x " + combo.getMinTeethCount() + "-" + combo.getMaxTeethCount());
         
         for (Double gearRatio: combo.getGearRatios())
         {
