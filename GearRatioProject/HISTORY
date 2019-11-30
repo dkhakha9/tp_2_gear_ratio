@@ -1,1 +1,6 @@
 11/10/2019, D. Khakhalov: Eclipse project - initial revision.
+11/22/2019, A. Kue:  Coded the initial classes and the calculation
+11/23/2019, D. Khakhalov: Added GearRatiosChart class; converted MainApp to JavaFX application.
+11/24/2019, D. Khakhalov: Added Combo class. Changed GearRatiosChart class to plot setups of combos.
+11/25/2019, D. Khakhalov: Minor update to Combo class and correction to chart example.
+11/26/2019, D. Khakhalov: Passed user input to the chart.
