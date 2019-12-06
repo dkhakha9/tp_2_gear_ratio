@@ -1,33 +1,40 @@
 import java.util.ArrayList;
 
+
 public class Cassette {
 
-	private String name;
-	private ArrayList<Gear> gears;
+	private ArrayList<Cogs> cogs= new ArrayList<>();
+	private ArrayList<Integer> availableSizes = new ArrayList<Integer>();
+	//based on interview
+	private final static int MAX_COGS_COUNT =12;
 	
-	public Cassette(String name) {
-		this.name = name;
-		gears = new ArrayList<>();
+	public Cassette(Cogs cogs) {
+
+		this.cogs.add(cogs);
+
+		this.availableSizes.add(cogs.getTeeth());
 	}
 	
-	public void addCassetteGear(Gear newGear) {
-		gears.add(newGear);
+	public void addCogs (Cogs cogs) {
+		
+		//avoid adding same size cogs
+		if (availableSizes.size() < MAX_COGS_COUNT && !availableSizes.contains(cogs.getTeeth())) {
+			this.cogs.add(cogs);
+			this.availableSizes.add(cogs.getTeeth());
+		}
+		
 	}
 	
-	public ArrayList<Gear> getCassetteGears() {
-		return gears;
+	public ArrayList<Cogs> getCassetteGears() {
+		return cogs;
 	}
 	
-	public String getCassetteName() {
-		return name;
+	public ArrayList<Integer> getAllCogSizes() {
+		return availableSizes;
 	}
 	
-	public void setCassetteName(String name) {
-		this.name = name;
-	}
-	
-	public double getGearSize(int index) {
-		return gears.get(index).getTeeth();
+	public int getGearSize(int index) {
+		return cogs.get(index).getTeeth();
 	}
 	
 }

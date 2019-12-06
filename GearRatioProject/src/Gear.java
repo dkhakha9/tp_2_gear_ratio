@@ -1,17 +1,17 @@
 
 public class Gear {
 
-	private double teethCount;
+	private int teethCount;
 	
-	public Gear(double teethCount) {
+	public Gear(int teethCount) {
 		this.teethCount = teethCount;
 	}
 	
-	public void setTeeth(double teethCount) {
+	public void setTeeth(int teethCount) {
 		this.teethCount = teethCount;
 	}
 	
-	public double getTeeth() {
+	public int getTeeth() {
 		return teethCount;
 	}
 }

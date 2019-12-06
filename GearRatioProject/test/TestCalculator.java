@@ -42,7 +42,7 @@ public class TestCalculator {
 		expected2.add(6.0);
 		expected2.add(4.0);
 		
-		Calculator calc = new Calculator(chainring, cassette);
+		Bicycle calc = new Bicycle(chainring, cassette);
 		calc.calculateGearRatios();
 		assertEquals(calc.getGearRatios().get(0), expected1);
 		assertEquals(calc.getGearRatios().get(1), expected2);
