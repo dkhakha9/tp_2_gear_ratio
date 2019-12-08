@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -120,45 +119,13 @@ public class Layout
 	
 	private void plotChart()
 	{
-		GearRatiosChart gearChart = new GearRatiosChart();
-		/*
-		Integer[] cassete1 = {11, 12, 13, 14, 15};
-        Integer[] cassete2 = {11, 13, 15, 17, 19};
-        
-        Combo combo1 = new Combo(genValue((Integer)setups.get(0).getChainrings().get(0).getValue(), 46), new ArrayList<Integer>(Arrays.asList(cassete1)));
-        
-        int size = 38;
-        
-        if (setups.get(0).getChainrings().size() > 1)
-        	size = genValue((Integer)setups.get(0).getChainrings().get(1).getValue(), size);
-        
-        Combo combo2 = new Combo(size, new ArrayList<Integer>(Arrays.asList(cassete2)));
-        Combo combo3 = new Combo(36, new ArrayList<Integer>(Arrays.asList(cassete1)));
-        Combo combo4 = new Combo(40, new ArrayList<Integer>(Arrays.asList(cassete1)));
-        
-        ArrayList<Combo> setup1 = new ArrayList<Combo>();
-        ArrayList<Combo> setup2 = new ArrayList<Combo>();
-        ArrayList<Combo> setup3 = new ArrayList<Combo>();
-        
-        setup1.add(combo2);
-        
-        setup2.add(combo1); // all combos in a setup should have the same cassette
-        setup2.add(combo3);
-        
-        setup3.add(combo1);
-        setup3.add(combo3);
-        setup3.add(combo4);
-        */
+		GearRatiosChart gearChart = new GearRatiosChart(setups.size());
+		
         for (Setup setup: setups)
         {
         	gearChart.addSetup(setup.getSetupCombos());
         }
         
-        /*
-        gearChart.addSetup(setup1);
-        gearChart.addSetup(setup2);
-        gearChart.addSetup(setup3);
-        */
         grid.add(gearChart.getChart(), 2, setups.size()*2 + 2, 12, 4);
 	} /* plotChart */
 }

@@ -14,17 +14,15 @@ public class GearRatiosChart
 	
 	private static final double SERIES_OFFSET = 0.1;
 	
-	public GearRatiosChart()
+	public GearRatiosChart(int numSetups)
 	{
 		xAxis = new NumberAxis();
-		yAxis = new NumberAxis();
+		yAxis = new NumberAxis(0, numSetups + 1, 1);
 		
 		xAxis.setLabel("Ratio");
 		yAxis.setLabel("Setup");
 		
-		yAxis.setTickUnit(1);
-		
-		lineChart = new LineChart<Number, Number>(xAxis,yAxis);
+		lineChart = new LineChart<Number, Number>(xAxis, yAxis);
 		
 		lineChart.setTitle("Gear Ratios");
 		
