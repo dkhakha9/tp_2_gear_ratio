@@ -32,4 +32,50 @@ public class Setup
 	{
 		return sprockets;
 	}
+	
+	public ArrayList<Combo> getSetupCombos()
+	{
+		ArrayList<Combo> setupCombos = new ArrayList<Combo>();
+		
+		ArrayList<Integer> chainringsSizes = getSizes(chainrings);
+		ArrayList<Integer> sprocketsSizes = getSizes(sprockets);
+		
+		for (Integer chainringSize: chainringsSizes)
+		{
+			setupCombos.add(new Combo(chainringSize, sprocketsSizes));
+		}
+		
+		return setupCombos;
+	} /* getSetupCombos */
+	
+	private ArrayList<Integer> getSizes(ArrayList<ChoiceBox> cogwheels)
+	{
+		ArrayList<Integer> sizes = new ArrayList<Integer>();
+		
+		int ringSize;
+		
+		for (ChoiceBox ring: cogwheels)
+		{
+			ringSize = genValue((Integer)ring.getValue(), 0);
+			
+			if (ringSize > 0)
+			{
+				sizes.add(ringSize);
+			}
+		}
+		
+		return sizes;
+	}
+	
+	private int genValue(Integer userInput, Integer defaultVal)
+	{
+		if (userInput == null)
+		{
+			return defaultVal;
+		}
+		else
+		{
+			return userInput;
+		}
+	}
 }

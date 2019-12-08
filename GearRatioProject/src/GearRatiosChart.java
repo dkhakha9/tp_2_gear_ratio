@@ -20,6 +20,9 @@ public class GearRatiosChart
 		yAxis = new NumberAxis();
 		
 		xAxis.setLabel("Ratio");
+		yAxis.setLabel("Setup");
+		
+		yAxis.setTickUnit(1);
 		
 		lineChart = new LineChart<Number, Number>(xAxis,yAxis);
 		
