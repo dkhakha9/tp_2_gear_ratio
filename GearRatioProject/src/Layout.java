@@ -1,27 +1,35 @@
 import java.util.ArrayList;
 
+import javax.xml.soap.Node;
+
+import edu.princeton.cs.introcs.StdOut;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 public class Layout
 {
 	private GridPane grid;
-	private ArrayList<Setup> setups;
+	private ArrayList<Bicycle> bikes;
 	
 	private Button plotButton;
 	private Button buttonAddSetup;
+	private Button reset;
 	
 	public Layout()
 	{
 		grid = new GridPane();
 		plotButton = new Button("Plot");
-		buttonAddSetup = new Button("Add Setup");
-		setups = new ArrayList<Setup>();
+		buttonAddSetup = new Button("Add sike setup");
+		reset = new Button ("Reset");
+		
+		bikes = new ArrayList<Bicycle>();
 		
 		initializeGrid();
 	}
@@ -67,18 +75,21 @@ public class Layout
             
             plotButton.setDisable(true);
             buttonAddSetup.setDisable(true);
+            grid.add(reset, 2, 3);
         });
         
         buttonAddSetup.setOnAction(value ->  {
         	addSetup();
         });
+        
+        
 	} /* initializeGrid */
 	
 	private void addSetup()
 	{
-		int newSetupRowNum = setups.size()*2 + 1;
+		int newSetupRowNum = bikes.size()*2 + 1;
     	
-    	Setup newSetup = new Setup();
+    	Bicycle newSetup = new Bicycle();
     	
     	for (int i = 0; i < 3; i++)
     	{
@@ -90,14 +101,14 @@ public class Layout
     		newSetup.addSprocket(new ChoiceBox(FXCollections.observableArrayList(genTeethSizeList(9, 36))));
     	}
     	
-    	setups.add(newSetup);
+    	bikes.add(newSetup);
     	
-    	int newButtonsRowNum = setups.size()*2 + 1;
+    	int newButtonsRowNum = bikes.size()*2 + 1;
     	
     	grid.setRowIndex(buttonAddSetup, newButtonsRowNum);
     	grid.setRowIndex(plotButton, newButtonsRowNum);
     	
-    	grid.addRow(newSetupRowNum, new Label(Integer.toString(setups.size())), new Label("Chainrings"));
+    	grid.addRow(newSetupRowNum, new Label(Integer.toString(bikes.size())), new Label("Chainrings"));
     	
     	for (ChoiceBox chainring: newSetup.getChainrings())
     	{
@@ -111,21 +122,23 @@ public class Layout
     		grid.addRow(newSetupRowNum + 1, sprocket);
     	}
     	
-    	if (setups.size() >= 3)
+    	if (bikes.size() >= 3)
     	{
     		buttonAddSetup.setDisable(true);
     	}
 	} /* addSetup */
 	
+
+	
 	private void plotChart()
 	{
-		GearRatiosChart gearChart = new GearRatiosChart(setups.size());
+		GearRatiosChart gearChart = new GearRatiosChart(bikes.size());
 		
-        for (Setup setup: setups)
+        for (Bicycle setup: bikes)
         {
         	gearChart.addSetup(setup.getSetupCombos());
         }
         
-        grid.add(gearChart.getChart(), 2, setups.size()*2 + 2, 12, 4);
+        grid.add(gearChart.getChart(), 2, bikes.size()*2 + 2, 12, 4);
 	} /* plotChart */
 }

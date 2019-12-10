@@ -1,40 +1,81 @@
 import java.util.ArrayList;
 
-public class Bicycle {
+import javafx.scene.control.ChoiceBox;
 
-
-	private Crankset crankset;
-	private Cassette cassette;
-	private ArrayList<ArrayList<Double>> gearRatios;
+public class Bicycle
+{
+	private ArrayList<ChoiceBox> chainrings;
+	private ArrayList<ChoiceBox> sprockets;
 	
-	public Bicycle(Crankset crankset, Cassette cassette) {
-		this.crankset = crankset;
-		this.cassette = cassette;
-		gearRatios = new ArrayList<>();
+	public Bicycle()
+	{
+		chainrings = new ArrayList<ChoiceBox>();
+		sprockets = new ArrayList<ChoiceBox>();
 	}
 	
-	public void calculateGearRatios() {
-		for (int i = 0; i < crankset.getChaingring().size(); i++) {
-			ArrayList<Double> chainringRatio = new ArrayList<Double>();
-			for (int j = 0; j < cassette.getCassetteGears().size(); j++) {
-				double ratio = crankset.getGearSize(i) / cassette.getGearSize(j);
-				chainringRatio.add(ratio);
+	public void addChainring(ChoiceBox newItem)
+	{
+		chainrings.add(newItem);
+	}
+	
+	public void addSprocket(ChoiceBox newItem)
+	{
+		sprockets.add(newItem);
+	}
+	
+	public ArrayList<ChoiceBox> getChainrings()
+	{
+		return chainrings;
+	}
+	
+	public ArrayList<ChoiceBox> getSprockets()
+	{
+		return sprockets;
+	}
+	
+	public ArrayList<Combo> getSetupCombos()
+	{
+		ArrayList<Combo> setupCombos = new ArrayList<Combo>();
+		
+		ArrayList<Integer> chainringsSizes = getSizes(chainrings);
+		ArrayList<Integer> sprocketsSizes = getSizes(sprockets);
+		
+		for (Integer chainringSize: chainringsSizes)
+		{
+			setupCombos.add(new Combo(chainringSize, sprocketsSizes));
+		}
+		
+		return setupCombos;
+	} /* getSetupCombos */
+	
+	private ArrayList<Integer> getSizes(ArrayList<ChoiceBox> cogwheels)
+	{
+		ArrayList<Integer> sizes = new ArrayList<Integer>();
+		
+		int ringSize;
+		
+		for (ChoiceBox ring: cogwheels)
+		{
+			ringSize = genValue((Integer)ring.getValue(), 0);
+			
+			if (ringSize > 0)
+			{
+				sizes.add(ringSize);
 			}
-			gearRatios.add(chainringRatio);
+		}
+		
+		return sizes;
+	}
+	
+	private int genValue(Integer userInput, Integer defaultVal)
+	{
+		if (userInput == null)
+		{
+			return defaultVal;
+		}
+		else
+		{
+			return userInput;
 		}
 	}
-	
-	public ArrayList<Integer> CasseteSizes(){
-		return this.cassette.getAllCogSizes();
-	}
-	
-	public ArrayList<Integer> CranksetSizes(){
-		return this.crankset.getAllSizes();
-	}
-	
-	
-	public ArrayList<ArrayList<Double>> getGearRatios() {
-		return gearRatios;
-	}
-	
 }
