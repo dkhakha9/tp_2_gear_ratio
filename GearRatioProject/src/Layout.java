@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 
-import javax.xml.soap.Node;
+import javafx.scene.Node;
 
 import edu.princeton.cs.introcs.StdOut;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -20,14 +21,16 @@ public class Layout
 	
 	private Button plotButton;
 	private Button buttonAddSetup;
-	private Button reset;
+	private Button resetButton;
+	
+	private int chartNodeInd;
 	
 	public Layout()
 	{
 		grid = new GridPane();
 		plotButton = new Button("Plot");
-		buttonAddSetup = new Button("Add sike setup");
-		reset = new Button ("Reset");
+		buttonAddSetup = new Button("Add bike setup");
+		resetButton = new Button ("Reset");
 		
 		bikes = new ArrayList<Bicycle>();
 		
@@ -57,7 +60,38 @@ public class Layout
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        grid.add(new Label("Setup"), 0, 0);
+        populateDefaultNodes();
+        
+        plotButton.setOnAction(value ->  {
+        	
+        	plotChart();
+            
+            plotButton.setDisable(true);
+            buttonAddSetup.setDisable(true);
+            grid.add(resetButton, 2, grid.getRowIndex(buttonAddSetup));
+        });
+        
+        buttonAddSetup.setOnAction(value ->  {
+        	addSetup();
+        });
+        
+        resetButton.setOnAction(value ->  {
+        	grid.getChildren().remove(chartNodeInd);
+        	
+        	plotButton.setDisable(false);
+        	
+        	if (bikes.size() < 3)
+        	{
+        		buttonAddSetup.setDisable(false);
+        	}
+        	
+        	grid.getChildren().remove(resetButton);
+        });
+	} /* initializeGrid */
+	
+	private void populateDefaultNodes()
+	{
+		grid.add(new Label("Setup"), 0, 0);
         
         grid.add(new Label("Cogwheel"), 1, 0);
         
@@ -68,22 +102,7 @@ public class Layout
         grid.add(buttonAddSetup, 0, 1);
         
         addSetup();
-        
-        plotButton.setOnAction(value ->  {
-        	
-        	plotChart();
-            
-            plotButton.setDisable(true);
-            buttonAddSetup.setDisable(true);
-            grid.add(reset, 2, 3);
-        });
-        
-        buttonAddSetup.setOnAction(value ->  {
-        	addSetup();
-        });
-        
-        
-	} /* initializeGrid */
+	} /* populateDefaultNodes */
 	
 	private void addSetup()
 	{
@@ -128,17 +147,21 @@ public class Layout
     	}
 	} /* addSetup */
 	
-
-	
 	private void plotChart()
 	{
 		GearRatiosChart gearChart = new GearRatiosChart(bikes.size());
+		
+		Node chart;
 		
         for (Bicycle setup: bikes)
         {
         	gearChart.addSetup(setup.getSetupCombos());
         }
         
-        grid.add(gearChart.getChart(), 2, bikes.size()*2 + 2, 12, 4);
+        chart = gearChart.getChart();
+        
+        grid.add(chart, 2, bikes.size()*2 + 2, 12, 4);
+        
+        chartNodeInd = grid.getChildren().indexOf(chart);
 	} /* plotChart */
 }

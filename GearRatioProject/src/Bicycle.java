@@ -42,7 +42,10 @@ public class Bicycle
 		
 		for (Integer chainringSize: chainringsSizes)
 		{
-			setupCombos.add(new Combo(chainringSize, sprocketsSizes));
+			if (sprocketsSizes.size() > 0)
+			{
+				setupCombos.add(new Combo(chainringSize, sprocketsSizes));
+			}
 		}
 		
 		return setupCombos;

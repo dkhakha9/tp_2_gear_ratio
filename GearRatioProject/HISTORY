@@ -9,3 +9,4 @@
 12/07/2019, D. Khakhalov: Added glossary.
 12/08/2019, D. Khakhalov: Finalized GUI.
 12/08/2019, D. Khakhalov: Completed transfer of the user input to the graph.
+12/10/2019, D. Khakhalov: Implemented action for Reset button, fixed bug with plotting a chainring without sprockets.
