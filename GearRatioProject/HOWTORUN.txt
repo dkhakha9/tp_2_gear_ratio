@@ -1,0 +1,6 @@
+1. Launch MainApp.
+2. Use "Chainrings" dropdowns to select up to 3 chainring sizes.
+2. Use "Sprockets" dropdowns to select up to 12 sprocket sizes in the cassette.
+4. Press "Add setup" to add another drivetrain setup.
+5. Press "Plot" to display the comparison chart.
+6. Press "Reset" to hide the chart and change input sizes.
