@@ -6,6 +6,7 @@ public class Bicycle
 {
 	private ArrayList<ChoiceBox> chainrings;
 	private ArrayList<ChoiceBox> sprockets;
+	private ArrayList<Combo> setupCombos;
 	
 	public Bicycle()
 	{
@@ -35,7 +36,7 @@ public class Bicycle
 	
 	public ArrayList<Combo> getSetupCombos()
 	{
-		ArrayList<Combo> setupCombos = new ArrayList<Combo>();
+		setupCombos = new ArrayList<Combo>();
 		
 		ArrayList<Integer> chainringsSizes = getSizes(chainrings);
 		ArrayList<Integer> sprocketsSizes = getSizes(sprockets);

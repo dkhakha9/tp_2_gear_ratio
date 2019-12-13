@@ -16,7 +16,7 @@ public class Layout
 {
 	private GridPane grid;
 	private ArrayList<Bicycle> bikes;
-	
+	private GearRatiosChart gearChart;
 	private Button plotButton;
 	private Button buttonAddSetup;
 	private Button resetButton;
@@ -147,7 +147,7 @@ public class Layout
 	
 	private void plotChart()
 	{
-		GearRatiosChart gearChart = new GearRatiosChart(bikes.size());
+		gearChart = new GearRatiosChart(bikes.size());
 		
 		Node chart;
 		

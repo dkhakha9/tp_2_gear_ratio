@@ -12,3 +12,4 @@
 12/10/2019, D. Khakhalov: Implemented action for Reset button, fixed bug with plotting a chainring without sprockets.
 12/10/2019, D. Khakhalov: Fixed calculator test.
 12/11/2019, D. Khakhalov: Added bicycle tests.
+12/12/2019, A. Kue: Updated Use Case and DoCD,  Added reverse-engineered class diagram and EclEmma coverage png

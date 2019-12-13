@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-public class TestCalculator
+public class TestCombo
 {
 	@Test
 	public void testGearRatioCalculator()
